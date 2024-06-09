@@ -22,8 +22,8 @@ class Server {
             console.log(' - Database file does not exist, creating new data.');
             this.data = {
                 results: {
-                    male: 0,
-                    female: 0
+                    boy: 0,
+                    girl: 0
                 },
                 votes: []
             };
@@ -47,10 +47,14 @@ class Server {
 
         this.app = express();
 
+        this.app.use(express.static('.'));
+
         this.app.get('/results', (req, res) => {
             res.send(this.data.results);
         });
         
+
+
         this.app.post('/vote', (req, res) => {
             console.log(req);
 

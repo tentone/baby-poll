@@ -6,9 +6,7 @@
   "type": "module",
   "author": "tentone",
   "scripts": {
-    "start": "npm run server & npm run client",
-    "client": "",
-    "server": "node server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "4.19.2",
