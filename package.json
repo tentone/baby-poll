@@ -1,0 +1,19 @@
+{
+  "name": "baby-poll",
+  "version": "1.0.0",
+  "description": "Simple app for a gender reveal poll",
+  "main": "server.js",
+  "type": "module",
+  "author": "tentone",
+  "scripts": {
+    "start": "npm run server & npm run client",
+    "client": "",
+    "server": "node server.js"
+  },
+  "dependencies": {
+    "express": "4.19.2",
+    "vue": "3.4.27"
+  },
+
+  "license": "MIT"
+}
