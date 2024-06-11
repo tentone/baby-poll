@@ -3,7 +3,7 @@
  * Configuration file for the application.
  */
 export const Config = {
-  locale: "pt",
+  locale: "en",
 
   api: "localhost:3000",
 };

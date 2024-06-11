@@ -57,7 +57,11 @@ class Server {
         this.app.post('/vote', (req, res) => {
             const data = req.body;
 
-            console.log(' - Received a vote.');
+            console.log(' - Received a vote.', data);
+
+            if (data.vote !== 'boy' && data.vote !== 'girl') {
+                res.status(400).send('Invalid vote, must be boy or girl.');
+            }
 
             this.data.results[data.vote] += 1;
             this.saveData();
