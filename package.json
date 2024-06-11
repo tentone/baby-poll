@@ -6,7 +6,8 @@
   "type": "module",
   "author": "tentone",
   "scripts": {
-    "start": "node server.js"
+    "server": "node server.js",
+    "start": "vite serve"
   },
   "dependencies": {
     "express": "4.19.2",

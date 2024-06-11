@@ -1,0 +1,15 @@
+:root {
+    font-family: 'Roboto', sans-serif;
+
+    --background: #EFF2F4;
+
+    --text: #5f5d59;
+    --text-alt: #677795;
+
+    --pink: #ff8175;
+    --pink-hover: #df5c50;
+
+    --blue: #0088ce;
+    --blue-hover: #005f8e;
+}
+
