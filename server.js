@@ -1,6 +1,6 @@
 import express from 'express';
 import * as fs from 'fs';
-
+import cors from 'cors';
 /**
  * Main application class.
  */
@@ -46,6 +46,7 @@ class Server {
         console.log(' - Starting server with config ', this.config);
 
         this.app = express();
+        this.app.use(cors());
         this.app.use(express.json());
         this.app.use(express.static('.'));
 
@@ -60,7 +61,7 @@ class Server {
 
             this.data.results[data.vote] += 1;
             this.saveData();
-            
+
             res.send();
         });
         

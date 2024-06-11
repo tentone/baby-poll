@@ -10,14 +10,15 @@ export const Locale = {
         "boy": "Menino",
         "girl": "Menina",
         "boyOrGirl": "Menino ou Menina?",
-
+        "voteSubmitted": "Voto submetido!"
     },
     en: {
         "results": "Results",
         "vote": "Vote",
         "boy": "Boy",
         "girl": "Girl",
-        "boyOrGirl": "Boy or Girl?"
+        "boyOrGirl": "Boy or Girl?",
+        "voteSubmitted": "Vote submitted!"
     }
 };
 

@@ -5,5 +5,5 @@
 export const Config = {
   locale: "pt",
 
-  api: "http://localhost:3000",
+  api: "localhost:3000",
 };

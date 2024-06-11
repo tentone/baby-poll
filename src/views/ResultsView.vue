@@ -1,5 +1,17 @@
 <script setup>
-  import {getLocale} from '../locale.js'
+  import { Config } from '../config.js';
+import {getLocale} from '../locale.js'
+  
+  let male = 14;
+  let female = 18;
+
+  async function getResults() {
+    const response = await fetch('http://' + Config.api + '/results', {method: 'GET'});
+    const data = await response.json();
+    console.log(data);
+  }
+
+  getResults();
 
 </script>
 
