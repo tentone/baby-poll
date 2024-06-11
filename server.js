@@ -46,7 +46,7 @@ class Server {
         console.log(' - Starting server with config ', this.config);
 
         this.app = express();
-
+        this.app.use(express.json());
         this.app.use(express.static('.'));
 
         this.app.get('/results', (req, res) => {
@@ -54,11 +54,14 @@ class Server {
         });
 
         this.app.post('/vote', (req, res) => {
-            console.log(req);
+            const data = req.body;
 
             console.log(' - Received a vote.');
-            // this.data.results[req.query] += 1;
 
+            this.data.results[data.vote] += 1;
+            this.saveData();
+            
+            res.send();
         });
         
         this.app.listen(this.config.port, () => {
