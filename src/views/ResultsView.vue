@@ -1,19 +1,73 @@
 <script setup>
-  import {Locale, getLocale} from '../locale.js'
+  import {getLocale} from '../locale.js'
 
 </script>
 
-<style>
+<style scoped>
   .title {
     font-size: 30px;
     color: var(--text);
   }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .result-text {
+    font-size: 40px;
+    color: var(--white);
+  }
 </style>
 
 <template>
-  <div style="display:flex; flex-direction: column">
+  <div class="container">
     <div class="title">{{getLocale("results")}}</div>
-    <div>{{Locale.en.home}}</div>
+
+    <!-- Boy -->
+    <div style="display:flex; flex-direction: row; gap: 30px;">
+      <!-- Gender indicator-->
+      <div style="background-color: var(--white-dirty); border-radius: 50%; width: 100px; height: 100px;">
+        <div style="display: flex; align-items: center;  justify-content: center; background-color: var(--white); border-radius: 50%; width: 100px; height: calc(100px - 10px); ">
+          <img style="width: 60%; height: 60%; object-fit: contain;" src="../assets/male.svg"/>
+        </div>
+      </div>
+      
+      <!-- Progress bar -->
+      <div style="width: 400px; height: 80px;">
+        <div style="width: 40%; height: 80px; background-color: var(--blue-hover); border-radius: 15px;">
+          <div style="display:flex; align-items: center; justify-content: center; width: 100%; height: calc(100% - 5px); background-color: var(--blue); border-radius: 15px;">
+            <div class="result-text">40</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Girl -->
+    <div style="display:flex; flex-direction: row; gap: 30px;">
+      <!-- Gender indicator-->
+      <div style="background-color: var(--white-dirty); border-radius: 50%; width: 100px; height: 100px;">
+        <div style="display: flex; align-items: center;  justify-content: center; background-color: var(--white); border-radius: 50%; width: 100px; height: calc(100px - 10px); ">
+          <img style="width: 60%; height: 60%; object-fit: contain;" src="../assets/female.svg"/>
+        </div>
+      </div>
+      
+      <!-- Progress bar -->
+      <div style="width: 400px; height: 80px;">
+
+        <div style="width: 60%; height: 80px; background-color: var(--pink-hover); border-radius: 15px;">
+          <div style="display:flex; align-items: center; justify-content: center; width: 100%; height: calc(100% - 5px); background-color: var(--pink); border-radius: 15px;">
+            <div class="result-text">60</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
 </template> 
 

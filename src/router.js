@@ -1,11 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-const router = createRouter({
+export default createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
+      redirect: '/results',
+    },
+    {
+      path: '/results',
+      name: 'results',
       component: () => import('./views/ResultsView.vue')
     },
     {
@@ -14,6 +18,4 @@ const router = createRouter({
       component: () => import('./views/VoteView.vue')
     }
   ]
-})
-
-export default router
+});

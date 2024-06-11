@@ -1,3 +1,5 @@
+import {Config} from "./config";
+
 /**
  * Object with the translations.
  */
@@ -7,20 +9,17 @@ export const Locale = {
         "vote": "Votar",
         "boy": "Menino",
         "girl": "Menina",
+        "boyOrGirl": "Menino ou Menina?",
 
     },
     en: {
         "results": "Results",
         "vote": "Vote",
         "boy": "Boy",
-        "girl": "Girl"
+        "girl": "Girl",
+        "boyOrGirl": "Boy or Girl?"
     }
 };
-
-/**
- * The current locale.
- */
-let currentLocale = "en";
 
 /**
  * Get the locale string.
@@ -29,5 +28,5 @@ let currentLocale = "en";
  * @returns Translated string.
  */
 export const getLocale = (str) => {
-    return Locale[currentLocale][str];
+    return Locale[Config.locale][str];
 }

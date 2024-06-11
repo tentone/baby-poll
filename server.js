@@ -52,8 +52,6 @@ class Server {
         this.app.get('/results', (req, res) => {
             res.send(this.data.results);
         });
-        
-
 
         this.app.post('/vote', (req, res) => {
             console.log(req);
