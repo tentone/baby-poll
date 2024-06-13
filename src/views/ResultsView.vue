@@ -2,6 +2,8 @@
   import { Config } from '../config.js';
   import {getLocale} from '../locale.js'
   import { ref } from 'vue'
+  import Particles from '../components/Particles.vue'
+
   let boyCount = ref(0);
   let girlCount = ref(0);
 
@@ -13,7 +15,6 @@
     const data = await response.json();
 
     console.log('Received results from API', data);
-
 
     const boy = data.boy;
     const girl = data.girl;
@@ -101,7 +102,8 @@
         </div>
       </div>
     </div>
-    
   </div>
+
+  <Particles/>
 </template> 
 

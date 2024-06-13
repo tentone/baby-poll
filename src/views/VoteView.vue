@@ -1,7 +1,8 @@
 <script setup>
   import {getLocale} from '../locale.js'
   import { Config } from '../config.js';
-
+  import Particles from '../components/Particles.vue'
+  
   async function vote(option) {
     const data = {
       vote: option
@@ -39,6 +40,7 @@
     <div class="title">{{getLocale("boyOrGirl")}}</div>
 
     <div style="display:flex; flex-direction: row; gap: 30px;">
+
     <!-- Boy -->
     <div @click="vote('boy')" style="display:flex; flex-direction: column; align-items: center;">
       <!-- Gender indicator-->
@@ -66,5 +68,7 @@
     </div>
   </div>
   </div>
+
+  <Particles/>
 </template> 
 

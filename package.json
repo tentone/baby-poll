@@ -13,7 +13,9 @@
     "express": "4.19.2",
     "vue": "3.4.27",
     "vue-router": "4.3.0",
-    "cors": "2.8.5"
+    "cors": "2.8.5",
+    "proton-engine": "5.2.5",
+    "raf-manager": "0.3.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "5.0.4",
