@@ -3,7 +3,12 @@
  * Configuration file for the application.
  */
 export const Config = {
-  locale: "pt",
+  // The locale to be used.
+  locale: "en",
+  
+  // Time between votes in seconds.
+  timeBetweenVotes: 10,
 
-  api: "localhost:3000",
+  // The URL of the API.
+  api: "192.168.0.109:3000"
 };

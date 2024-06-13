@@ -40,7 +40,8 @@
 
 <style scoped>
   .title {
-    font-size: 30px;
+    font-size: 40px;
+    font-weight: bold;
     color: var(--text);
   }
 
@@ -58,6 +59,50 @@
     font-size: 40px;
     color: var(--white);
   }
+
+  .gender-indicator {
+    background-color: var(--white-dirty);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+
+  .gender-indicator-shadow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--white);
+    border-radius: 50%;
+    width: 100px;
+    height: calc(100px - 10px); 
+  }
+
+  .gender-indicator-image {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+  }
+
+  .gender-progress-bar-container {
+    width: 500px;
+    height: 80px;
+  }
+
+  .gender-progress-bar {
+    height: 80px;
+    border-radius: 15px;
+  }
+
+  .gender-progress-bar-shadow {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(100% - 5px);
+    border-radius: 15px;
+  }
+
+
 </style>
 
 <template>
@@ -67,16 +112,16 @@
     <!-- Boy -->
     <div style="display:flex; flex-direction: row; gap: 30px;">
       <!-- Gender indicator-->
-      <div style="background-color: var(--white-dirty); border-radius: 50%; width: 100px; height: 100px;">
-        <div style="display: flex; align-items: center;  justify-content: center; background-color: var(--white); border-radius: 50%; width: 100px; height: calc(100px - 10px); ">
-          <img style="width: 60%; height: 60%; object-fit: contain;" src="../assets/male.svg"/>
+      <div class="gender-indicator">
+        <div class="gender-indicator-shadow">
+          <img class="gender-indicator-image" src="../assets/male.svg"/>
         </div>
       </div>
       
       <!-- Progress bar -->
-      <div style="width: 400px; height: 80px;">
-        <div ref="boyBar" style="height: 80px; background-color: var(--blue-hover); border-radius: 15px;">
-          <div style="display:flex; align-items: center; justify-content: center; width: 100%; height: calc(100% - 5px); background-color: var(--blue); border-radius: 15px;">
+      <div class="gender-progress-bar-container">
+        <div ref="boyBar" class="gender-progress-bar" style="background-color: var(--blue-hover);">
+          <div class="gender-progress-bar-shadow" style="background-color: var(--blue);">
             <div class="result-text">{{boyCount}}</div>
           </div>
         </div>
@@ -86,17 +131,16 @@
     <!-- Girl -->
     <div style="display:flex; flex-direction: row; gap: 30px;">
       <!-- Gender indicator-->
-      <div style="background-color: var(--white-dirty); border-radius: 50%; width: 100px; height: 100px;">
-        <div style="display: flex; align-items: center;  justify-content: center; background-color: var(--white); border-radius: 50%; width: 100px; height: calc(100px - 10px); ">
-          <img style="width: 60%; height: 60%; object-fit: contain;" src="../assets/female.svg"/>
+      <div class="gender-indicator">
+        <div class="gender-indicator-shadow">
+          <img class="gender-indicator-image" src="../assets/female.svg"/>
         </div>
       </div>
       
       <!-- Progress bar -->
-      <div style="width: 400px; height: 80px;">
-
-        <div ref="girlBar" style="height: 80px; background-color: var(--pink-hover); border-radius: 15px;">
-          <div style="display:flex; align-items: center; justify-content: center; width: 100%; height: calc(100% - 5px); background-color: var(--pink); border-radius: 15px;">
+      <div class="gender-progress-bar-container">
+        <div ref="girlBar" class="gender-progress-bar" style="background-color: var(--pink-hover);">
+          <div class="gender-progress-bar-shadow" style="background-color: var(--pink);">
             <div class="result-text">{{girlCount}}</div>
           </div>
         </div>

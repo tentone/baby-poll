@@ -1,11 +1,13 @@
+@import '../node_modules/awesome-notifications/dist/style.css';
+@import "@fontsource/roboto";
+
 :root {
     font-family: 'Roboto', sans-serif;
-
+    
     --background: #EFF2F4;
 
     --white: #ffffff;
     --white-dirty: #eeeff0;
-
 
     --text: #5f5d59;
     --text-alt: #677795;
@@ -19,3 +21,8 @@
     --blue-light: #afd5e9;
 }
 
+body {
+    -webkit-user-select: none;
+    -ms-user-select: none; 
+    user-select: none;
+}

@@ -38,7 +38,7 @@
         const createEmitter = (color) => {
             const emitter = new Proton.Emitter();
             emitter.damping = 0.008;
-            emitter.rate = new Proton.Rate(50);
+            emitter.rate = new Proton.Rate(20);
             emitter.addInitialize(new Proton.Mass(1));
             emitter.addInitialize(new Proton.Radius(5, 9));
             emitter.addInitialize(
@@ -74,7 +74,7 @@
         this.proton = proton;
       },
       createRenderer(canvas) {
-        const jointCount = 12;
+        const tailSize = 12;
         const delayTime = 5;
         const context = canvas.getContext("2d");
         const renderer = new Proton.CanvasRenderer(canvas);
@@ -100,7 +100,7 @@
         const fillPointsData = (particle) => {
           particle.data.points.unshift(particle.p.y);
           particle.data.points.unshift(particle.p.x);
-          if (particle.data.points.length > jointCount) {
+          if (particle.data.points.length > tailSize) {
             particle.data.points.pop();
             particle.data.points.pop();
           }
