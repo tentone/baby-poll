@@ -7,7 +7,7 @@ export const Config = {
   locale: "en",
   
   // Time between votes in seconds.
-  timeBetweenVotes: 10,
+  timeBetweenVotes: 5,
 
   // The URL of the API.
   api: "localhost:3000"
