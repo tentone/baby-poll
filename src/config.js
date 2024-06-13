@@ -10,5 +10,5 @@ export const Config = {
   timeBetweenVotes: 10,
 
   // The URL of the API.
-  api: "192.168.0.109:3000"
+  api: "localhost:3000"
 };

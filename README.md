@@ -13,5 +13,9 @@
  - To run the client app, run `npm run start` 
  - To run the server, run `npm run server`
 
+## Configuration
+ - The server is configured to run on port 3000 and client to run on port 80.
+ - Change the file `src/config.js` to change the server address.
+
 ## License
  - The project is distributed under [MIT](https://opensource.org/licenses/MIT), available in the LICENSE file
