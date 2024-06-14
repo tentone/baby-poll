@@ -13,14 +13,14 @@ export const Config = {
   multipleVotes: true,
 
   // The URL of the API.
-  api: "localhost:3000",
+  api: {
+    // URL of the API
+    address: "jfpc.net",
 
-  // Port of the server.
-  port: 3000,
+    // Port of the server.
+    port: 3000,
+  },
 
   // Path to the database.
   database: 'database.json',
-
-  // URL of the client.
-  client: "localhost"
 };

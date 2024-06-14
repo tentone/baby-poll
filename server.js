@@ -57,7 +57,6 @@ class Server {
         this.app = express();
         this.app.use(cors());
         this.app.use(express.json());
-        this.app.use(express.static('.'));
 
         this.app.post('/reset', (req, res) => {
             this.createData();
@@ -104,8 +103,8 @@ class Server {
             res.send();
         });
         
-        this.app.listen(this.config.port, () => {
-            console.log(` - Server running at http://localhost:${this.config.port}`);
+        this.app.listen(this.config.api.port, () => {
+            console.log(` - Server running at http://localhost:${this.config.api.port}`);
         });
     }
 }

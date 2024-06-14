@@ -112,14 +112,7 @@
         const drawSpermHead = (particle) => {
           context.fillStyle = particle.color;
           context.beginPath();
-          context.arc(
-            particle.p.x,
-            particle.p.y,
-            particle.radius,
-            0,
-            Math.PI * 2,
-            true
-          );
+          context.arc(particle.p.x, particle.p.y, particle.radius, 0, Math.PI * 2, true);
           context.closePath();
           context.fill();
         };

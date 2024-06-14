@@ -22,7 +22,7 @@
       };
 
       try {
-        await fetch('http://' + Config.api + '/vote', {method: 'POST', headers: {
+        await fetch('http://' + Config.api.address + ':' + Config.api.port + '/vote', {method: 'POST', headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }, body: JSON.stringify(data)})

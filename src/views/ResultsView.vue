@@ -12,7 +12,7 @@
   const girlBar = ref(null);
 
   async function getResults() {
-    const response = await fetch('http://' + Config.api + '/results', {method: 'GET'});
+    const response = await fetch('http://' + Config.api.address + ':' + Config.api.port + '/results', {method: 'GET'});
     const data = await response.json();
 
     console.log('Received results from API', data);
