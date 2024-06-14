@@ -43,7 +43,7 @@
 
 <style scoped>
   .title {
-    font-size: 40px;
+    font-size: 50px;
     font-weight: bold;
     color: var(--text);
   }
@@ -59,7 +59,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 50px;
     height: 100%;
     width: 100%;
   }
@@ -67,21 +66,19 @@
   .button-group {
     display:flex;
     flex-direction: row;
-    gap: 50px;
   }
 
   .button-container {
     display:flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
   }
 
   .button {
     background-color: var(--white-dirty);
     border-radius: 50%;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
   }
 
   .button-shadow {
@@ -90,13 +87,13 @@
     justify-content: center;
     background-color: var(--white);
     border-radius: 50%;
-    width: 100px;
-    height: calc(100px - 10px);
+    width: 150px;
+    height: calc(150px - 10px);
   }
 
   .button-image {
-    width: 60%;
-    height: 60%;
+    width: 50%;
+    height: 50%;
     object-fit: contain;
   }
 
@@ -117,34 +114,38 @@
   <div class="container">
     <div class="title">{{getLocale("boyOrGirl")}}</div>
 
+    <div style="height: 50px;"></div>
     <div class="button-group">
-
-    <!-- Boy -->
-    <div @click="vote('boy')" class="button-container">
-      <!-- Gender indicator-->
-      <div class="button">
-        <div class="button-shadow">
-          <img class="button-image" src="../assets/male.svg"/>
+      <!-- Boy -->
+      <div @click="vote('boy')" class="button-container">
+        <!-- Gender indicator-->
+        <div class="button">
+          <div class="button-shadow">
+            <img class="button-image" src="../assets/male.svg"/>
+          </div>
         </div>
+
+        <div style="height: 10px;"></div>
+
+        <!-- Text -->
+        <div class="button-text">{{getLocale("boy")}}</div>
       </div>
 
-      <!-- Text -->
-      <div class="button-text">{{getLocale("boy")}}</div>
-    </div>
+      <div style="width: 80px;"></div>
 
-    <!-- Girl -->
-    <div @click="vote('girl')" class="button-container">
-      <!-- Gender indicator-->
-      <div class="button">
-        <div class="button-shadow">
-          <img class="button-image" src="../assets/female.svg"/>
+      <!-- Girl -->
+      <div @click="vote('girl')" class="button-container">
+        <!-- Gender indicator-->
+        <div class="button">
+          <div class="button-shadow">
+            <img class="button-image" src="../assets/female.svg"/>
+          </div>
         </div>
+        <div style="height: 10px;"></div>
+        <!-- Text -->
+        <div class="button-text">{{getLocale("girl")}}</div>
       </div>
-
-      <!-- Text -->
-      <div class="button-text">{{getLocale("girl")}}</div>
     </div>
-  </div>
   </div>
 
 
