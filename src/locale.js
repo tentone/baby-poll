@@ -12,7 +12,11 @@ export const Locale = {
         "boyOrGirl": "Menino ou Menina?",
         "voteSubmitted": "Voto submetido!",
         "sending": "A enviar",
-        "cannotVote": "Não é possível votar mais de uma vez."
+        "cannotVote": "Não é possível votar novamente. Aguarde!",
+        "errorVoting": "Erro ao votar. Tente novamente.",
+        "warning": "Aviso",
+        "success": "Sucesso",
+        "error": "Erro"
     },
     en: {
         "results": "Results",
@@ -22,7 +26,11 @@ export const Locale = {
         "boyOrGirl": "Boy or Girl?",
         "voteSubmitted": "Vote submitted!",
         "sending": "Sending",
-        "cannotVote": "Cannot vote more than once."
+        "cannotVote": "Cannot vote again. Wait!",
+        "errorVoting": "Error voting. Try again.",
+        "warning": "Warning",
+        "success": "Success",
+        "error": "Error"
     }
 };
 

@@ -6,32 +6,40 @@
 
   let allowVote = true;
   let notifier = new AWN({enabled: false});
-    
+
   async function vote(option) {
-    
-    if (!allowVote) {
-      notifier.alert(getLocale("cannotVote"))
-      return;
-    }
+    await notifier.asyncBlock((async function() {
+      if (!allowVote) {
+        notifier.warning(getLocale("cannotVote"), {labels: {warning: getLocale("warning")}});
+        return;
+      }
 
-    allowVote = false;
+      allowVote = false;
 
-    const data = {
-      vote: option
-    };
+      const data = {
+        vote: option
+      };
 
-    const req = fetch('http://' + Config.api + '/vote', {method: 'POST', headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }, body: JSON.stringify(data)})
+      try {
+        await fetch('http://' + Config.api + '/vote', {method: 'POST', headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }, body: JSON.stringify(data)})
 
-    
-    await notifier.asyncBlock(req, null, null, getLocale("sending"));
-    notifier.success(getLocale("voteSubmitted"));
+        notifier.success(getLocale("voteSubmitted"), {labels: {success: getLocale("success")}});
 
-    setTimeout(() => {
-      allowVote = true;
-    }, Config.timeBetweenVotes * 1000);
+        setTimeout(() => {
+          allowVote = true;
+        }, Config.timeBetweenVotes * 1000);
+      } catch {
+        notifier.alert(getLocale("errorVoting"), {labels: {alert: getLocale("error")}});
+        allowVote = true;
+      }
+    })(), null, null, getLocale("sending"));
+  }
+
+  function fullscreen() {
+    document.documentElement.requestFullscreen();
   }
 </script>
 
@@ -94,9 +102,22 @@
     object-fit: contain;
   }
 
+  .fullscreen-button {
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 30px;
+    height: 30px;
+  }
+
 </style>
 
 <template>
+  <div @click="fullscreen()" class="fullscreen-button">
+    <img src="../assets/fullscreen.svg" style="width: 100%; height: 100%;"/>
+  </div>
+
   <div class="container">
     <div class="title">{{getLocale("boyOrGirl")}}</div>
 
@@ -129,6 +150,8 @@
     </div>
   </div>
   </div>
+
+
 
   <Particles/>
 </template> 

@@ -75,7 +75,7 @@
       },
       createRenderer(canvas) {
         const tailSize = 12;
-        const delayTime = 5;
+        const tailFrameUpdate = 5;
         const context = canvas.getContext("2d");
         const renderer = new Proton.CanvasRenderer(canvas);
   
@@ -87,17 +87,19 @@
           particle.data.points = [];
           particle.data.index = 0;
         };
-  
+        
+        // Update 
         renderer.onParticleUpdate = (particle) => {
-          drawTadpoleTail(particle);
-          if (particle.data.index % delayTime === 0) {
-            fillPointsData(particle);
+          drawSpermTail(particle);
+          if (particle.data.index % tailFrameUpdate === 0) {
+            addPosition(particle);
           }
-          drawTadpoleHead(particle);
+          drawSpermHead(particle);
           particle.data.index++;
         };
-  
-        const fillPointsData = (particle) => {
+        
+        // Add extra data to particle
+        const addPosition = (particle) => {
           particle.data.points.unshift(particle.p.y);
           particle.data.points.unshift(particle.p.x);
           if (particle.data.points.length > tailSize) {
@@ -105,8 +107,9 @@
             particle.data.points.pop();
           }
         };
-  
-        const drawTadpoleHead = (particle) => {
+        
+        // Draw the head of the sperm
+        const drawSpermHead = (particle) => {
           context.fillStyle = particle.color;
           context.beginPath();
           context.arc(
@@ -120,8 +123,9 @@
           context.closePath();
           context.fill();
         };
-  
-        const drawTadpoleTail = (particle) => {
+        
+        // Draw the tail of the sperm, from the list of points
+        const drawSpermTail = (particle) => {
           context.beginPath();
           context.strokeStyle = particle.color;
           context.moveTo(particle.p.x, particle.p.y);
@@ -129,12 +133,13 @@
           for (let i = 0; i < l; i += 2) {
             const x = particle.data.points[i];
             const y = particle.data.points[i + 1];
-            context.lineWidth = linearEvaluation(i, l);
+            context.lineWidth = linearEvaluation(i, l) * 2.0;
             context.lineTo(x, y);
             context.stroke();
           }
         };
-  
+        
+        // Linear evaluation for the tail width
         const linearEvaluation = (i, l) => {
           if (l <= 2) return 1;
   
@@ -150,6 +155,8 @@
   
         return renderer;
       },
+
+
       renderProton: function () {
         if (this.proton) {
           this.proton.update();

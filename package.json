@@ -12,6 +12,7 @@
   "dependencies": {
     "@fontsource/roboto": "5.0.13",
     "express": "4.19.2",
+    "uuid": "10.0.0",
     "vue": "3.4.27",
     "vue-router": "4.3.0",
     "cors": "2.8.5",
