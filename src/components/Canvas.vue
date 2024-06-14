@@ -1,5 +1,5 @@
 <template>
-    <canvas class="canvas" ref="canvasRef" />
+    <canvas class="canvas" ref="canvasRef"/>
 </template>
   
 <style scoped>
@@ -11,7 +11,6 @@
   }
 </style>
   
-
   <script>
   export default {
     name: "Canvas",

@@ -2,6 +2,7 @@
   import { Config } from '../config.js';
   import {getLocale} from '../locale.js'
   import { ref } from 'vue'
+  import Fullscreen from '../components/Fullscreen.vue';
   import Particles from '../components/Particles.vue'
 
   let boyCount = ref(0);
@@ -106,6 +107,8 @@
 </style>
 
 <template>
+  <Fullscreen/>
+
   <div class="container">
     <div class="title">{{getLocale("results")}}</div>
 

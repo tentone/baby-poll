@@ -1,7 +1,8 @@
 <script setup>
   import {getLocale} from '../locale.js'
-  import { Config } from '../config.js';
+  import {Config} from '../config.js';
   import Particles from '../components/Particles.vue';
+  import Fullscreen from '../components/Fullscreen.vue';
   import AWN from "awesome-notifications"
 
   let allowVote = true;
@@ -38,9 +39,6 @@
     })(), null, null, getLocale("sending"));
   }
 
-  function fullscreen() {
-    document.documentElement.requestFullscreen();
-  }
 </script>
 
 <style scoped>
@@ -114,9 +112,7 @@
 </style>
 
 <template>
-  <div @click="fullscreen()" class="fullscreen-button">
-    <img src="../assets/fullscreen.svg" style="width: 100%; height: 100%;"/>
-  </div>
+  <Fullscreen/>
 
   <div class="container">
     <div class="title">{{getLocale("boyOrGirl")}}</div>
