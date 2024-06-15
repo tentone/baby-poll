@@ -55,20 +55,16 @@
         
         const createEmitter = (color, count) => {
             const emitter = new Proton.Emitter();
-            emitter.damping = 0.008;
+            emitter.damping = 0.005;
             emitter.rate = new Proton.Rate(count);
             emitter.addInitialize(new Proton.Mass(1));
-            emitter.addInitialize(new Proton.Radius(5, 9));
-            emitter.addInitialize(
-            new Proton.Velocity(
-                new Proton.Span(1.5),
-                new Proton.Span(0, 360),
-                "polar"
-            )
-            );
-
+            emitter.addInitialize(new Proton.Radius(5, 10));
+            emitter.addInitialize(new Proton.Velocity(new Proton.Span(1.5), new Proton.Span(0, 360),"polar"));
             emitter.addInitialize(new Proton.Position(new Proton.RectZone(0, 0, width, height)));
-            const crossZoneBehaviour = new Proton.CrossZone(new Proton.RectZone(-50, -50, canvas.width + 100, canvas.height + 100),"bound");
+
+            // Limit the particles to the canvas
+            const crossZoneBehaviour = new Proton.CrossZone(new Proton.RectZone(-50, -50, canvas.width + 100, canvas.height + 100), "bound");
+
             emitter.addBehaviour(new Proton.Color(color));
             emitter.addBehaviour(crossZoneBehaviour);
             emitter.addBehaviour(new Proton.RandomDrift(15, 15, 0.05));
@@ -80,10 +76,10 @@
         this.crossZoneBehaviours = [];
 
         if (Config.coloredSperm) {
-          const a = createEmitter(CSSUtils.getVariable("--pink"), Config.spermCount / 2);
+          const a = createEmitter(CSSUtils.getVariable("--pink-light"), Config.spermCount / 2);
           proton.addEmitter(a.emitter);
 
-          const b = createEmitter(CSSUtils.getVariable("--blue"), Config.spermCount / 2);
+          const b = createEmitter(CSSUtils.getVariable("--blue-light"), Config.spermCount / 2);
           proton.addEmitter(b.emitter);
 
           this.crossZoneBehaviours = [a.crossZoneBehaviour, b.crossZoneBehaviour];

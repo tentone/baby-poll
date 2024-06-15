@@ -22,11 +22,11 @@
 
 
     if(boyBar.value) {
-      boyBar.value.style.width = Math.ceil((boy > 0 ? boy / (boy + girl) : 0) * 100) + '%';
+      boyBar.value.style.width = Math.ceil((boy > 0 ? boy / (boy + girl) : 0.1) * 100) + '%';
     }
 
     if(girlBar.value) {
-      girlBar.value.style.width = Math.ceil((girl > 0 ? girl / (boy + girl) : 0) * 100) + '%';
+      girlBar.value.style.width = Math.ceil((girl > 0 ? girl / (boy + girl) : 0.1) * 100) + '%';
     }
 
     boyCount.value=data.boy;
@@ -86,11 +86,11 @@
 
   .gender-progress-bar-container {
     width: 500px;
-    height: 80px;
+    height: 90px;
   }
 
   .gender-progress-bar {
-    height: 80px;
+    height: 90px;
     border-radius: 15px;
   }
 
