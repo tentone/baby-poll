@@ -8,7 +8,8 @@
   
   <script>
   import { CSSUtils } from "../css";
-import Canvas from "./canvas.vue";
+  import Canvas from "./canvas.vue";
+  import Config from "../config";
   import Proton from "proton-engine";
   import RAFManager from "raf-manager";
   
@@ -36,10 +37,10 @@ import Canvas from "./canvas.vue";
         const height = canvas.height;
         const proton = new Proton();
         
-        const createEmitter = (color) => {
+        const createEmitter = (color, count) => {
             const emitter = new Proton.Emitter();
             emitter.damping = 0.008;
-            emitter.rate = new Proton.Rate(20);
+            emitter.rate = new Proton.Rate(count);
             emitter.addInitialize(new Proton.Mass(1));
             emitter.addInitialize(new Proton.Radius(5, 9));
             emitter.addInitialize(
@@ -60,13 +61,26 @@ import Canvas from "./canvas.vue";
             return {emitter: emitter, crossZoneBehaviour: crossZoneBehaviour};
         };
 
-        const a = createEmitter(CSSUtils.getVariable("--pink"));
-        const b = createEmitter(CSSUtils.getVariable("--blue"));
-        proton.addEmitter(a.emitter);
-        proton.addEmitter(b.emitter);
+        this.crossZoneBehaviours = [];
+
+        if (this.coloredSperm) {
+          const a = createEmitter(CSSUtils.getVariable("--pink", Config.spermCount / 2));
+          proton.addEmitter(a.emitter);
+
+          const b = createEmitter(CSSUtils.getVariable("--blue", Config.spermCount / 2));
+          proton.addEmitter(b.emitter);
+
+          this.crossZoneBehaviours = [a.crossZoneBehaviour, b.crossZoneBehaviour];
+        } else {
+          const a = createEmitter(CSSUtils.getVariable("--white", Config.spermCount));
+          proton.addEmitter(a.emitter);
+          this.crossZoneBehaviours = [a.crossZoneBehaviour];
+        }
+
+   
         proton.addRenderer(this.createRenderer(canvas));
 
-        this.crossZoneBehaviours = [a.crossZoneBehaviour, b.crossZoneBehaviour];
+        
         this.proton = proton;
       },
       createRenderer(canvas) {
