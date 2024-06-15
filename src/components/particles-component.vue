@@ -8,8 +8,8 @@
   
   <script>
   import { CSSUtils } from "../css";
-  import Canvas from "./canvas.vue";
-  import Config from "../config";
+  import Canvas from "./canvas-component.vue";
+  import {Config} from "../config";
   import Proton from "proton-engine";
   import RAFManager from "raf-manager";
   
@@ -63,11 +63,11 @@
 
         this.crossZoneBehaviours = [];
 
-        if (this.coloredSperm) {
-          const a = createEmitter(CSSUtils.getVariable("--pink", Config.spermCount / 2));
+        if (Config.coloredSperm) {
+          const a = createEmitter(CSSUtils.getVariable("--pink"), Config.spermCount / 2);
           proton.addEmitter(a.emitter);
 
-          const b = createEmitter(CSSUtils.getVariable("--blue", Config.spermCount / 2));
+          const b = createEmitter(CSSUtils.getVariable("--blue"), Config.spermCount / 2);
           proton.addEmitter(b.emitter);
 
           this.crossZoneBehaviours = [a.crossZoneBehaviour, b.crossZoneBehaviour];

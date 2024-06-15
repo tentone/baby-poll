@@ -10,7 +10,7 @@ export const Config = {
   timeBetweenVotes: 5,
 
   // Sperm count.
-  spermCount: 50,
+  spermCount: 20,
 
   // Colored sperm
   coloredSperm: true,

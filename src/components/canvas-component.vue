@@ -1,7 +1,7 @@
 <template>
     <canvas class="canvas" ref="canvasRef"/>
 </template>
-  
+
 <style scoped>
   .canvas {
     width: 100%;
@@ -10,8 +10,8 @@
     background-color: var(--background);
   }
 </style>
-  
-  <script>
+
+<script>
   export default {
     name: "Canvas",
     props: {
