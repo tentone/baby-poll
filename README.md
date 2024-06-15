@@ -14,8 +14,32 @@
  - To run the server, run `npm run server`
 
 ## Configuration
- - The server is configured to run on port 3000 and client to run on port 80.
+ - The server is configured to run on port 3000 and client to run on port 80 by default.
  - Change the file `src/config.js` to change the server address.
 
+```javascript
+export const Config = {
+  // The locale to be used.
+  locale: "pt",
+  
+  // Minimum time between votes in seconds.
+  timeBetweenVotes: 0,
+
+  // Allow a user to vote multiple times.
+  multipleVotes: false,
+
+  // The URL of the API.
+  api: {
+    // Address of the server
+    address: "localhost",
+
+    // Port of the server.
+    port: 3000,
+  },
+
+  // Path to the database.
+  database: 'database.json',
+};
+```
 ## License
  - The project is distributed under [MIT](https://opensource.org/licenses/MIT), available in the LICENSE file

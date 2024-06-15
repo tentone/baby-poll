@@ -6,16 +6,16 @@ export const Config = {
   // The locale to be used.
   locale: "pt",
   
-  // Time between votes in seconds.
-  timeBetweenVotes: 5,
+  // Minimum time between votes in seconds.
+  timeBetweenVotes: 0,
 
   // Allow a user to vote multiple times.
-  multipleVotes: true,
+  multipleVotes: false,
 
   // The URL of the API.
   api: {
-    // URL of the API
-    address: "jfpc.net",
+    // Address of the server
+    address: "localhost",
 
     // Port of the server.
     port: 3000,

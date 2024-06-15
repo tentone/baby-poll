@@ -70,7 +70,7 @@ class Server {
         this.app.post('/vote', (req, res) => {
             const data = req.body;
 
-            console.log(' - Received a vote.', data, req);
+            console.log(' - Received a vote.', data);
 
             if (data.vote !== 'boy' && data.vote !== 'girl') {
                 res.status(400).send('Invalid vote, must be boy or girl.');
@@ -80,7 +80,9 @@ class Server {
              
             // Check if the user has voted already.
             if (!this.config.multipleVotes) {
-                const hasVoted = this.data.votes.find(vote => vote.clientId === data.clientId);
+                const hasVoted = this.data.votes.find((vote) => {return vote.clientId === data.clientId}) !== null;
+                
+                console.log(' - Has voted: ', hasVoted);
                 if (hasVoted) {
                     res.status(400).send('You have already voted.');
                     return;

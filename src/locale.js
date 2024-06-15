@@ -16,7 +16,8 @@ export const Locale = {
         "errorVoting": "Erro ao votar. Tente novamente.",
         "warning": "Aviso",
         "success": "Sucesso",
-        "error": "Erro"
+        "error": "Erro",
+        "noInternet": "Sem ligação à internet."
     },
     en: {
         "results": "Results",
@@ -30,7 +31,8 @@ export const Locale = {
         "errorVoting": "Error voting. Try again.",
         "warning": "Warning",
         "success": "Success",
-        "error": "Error"
+        "error": "Error",
+        "noInternet": "No internet connection."
     }
 };
 

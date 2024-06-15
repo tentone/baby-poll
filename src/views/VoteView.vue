@@ -18,22 +18,29 @@
       allowVote = false;
 
       const data = {
-        vote: option
+        vote: option,
+        clientId: localStorage.getItem('clientId')
       };
 
       try {
-        await fetch('http://' + Config.api.address + ':' + Config.api.port + '/vote', {method: 'POST', headers: {
+        const response = await fetch('http://' + Config.api.address + ':' + Config.api.port + '/vote', {method: 'POST', headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }, body: JSON.stringify(data)})
-
-        notifier.success(getLocale("voteSubmitted"), {labels: {success: getLocale("success")}});
-
-        setTimeout(() => {
+        
+        if (response.status !== 200) {
+          notifier.alert(getLocale("errorVoting"), {labels: {alert: getLocale("error")}});
           allowVote = true;
-        }, Config.timeBetweenVotes * 1000);
+        } else {
+          notifier.success(getLocale("voteSubmitted"), {labels: {success: getLocale("success")}});
+          setTimeout(() => {
+            allowVote = true;
+          }, Config.timeBetweenVotes * 1000);
+        }
+
+
       } catch {
-        notifier.alert(getLocale("errorVoting"), {labels: {alert: getLocale("error")}});
+        notifier.alert(getLocale("noInternet"), {labels: {alert: getLocale("error")}});
         allowVote = true;
       }
     })(), null, null, getLocale("sending"));

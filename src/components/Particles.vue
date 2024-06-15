@@ -49,13 +49,8 @@
             )
             );
 
-            emitter.addInitialize(
-            new Proton.Position(new Proton.RectZone(0, 0, width, height))
-            );
-            const crossZoneBehaviour = new Proton.CrossZone(
-            new Proton.RectZone(-50, -50, canvas.width + 100, canvas.height + 100),
-            "bound"
-            );
+            emitter.addInitialize(new Proton.Position(new Proton.RectZone(0, 0, width, height)));
+            const crossZoneBehaviour = new Proton.CrossZone(new Proton.RectZone(-50, -50, canvas.width + 100, canvas.height + 100),"bound");
             emitter.addBehaviour(new Proton.Color(color));
             emitter.addBehaviour(crossZoneBehaviour);
             emitter.addBehaviour(new Proton.RandomDrift(15, 15, 0.05));
