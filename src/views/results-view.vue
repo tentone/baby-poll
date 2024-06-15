@@ -2,8 +2,8 @@
   import { Config } from '../config.js';
   import {getLocale} from '../locale.js'
   import { ref } from 'vue'
-  import Fullscreen from '../components/Fullscreen.vue';
-  import Particles from '../components/Particles.vue'
+  import Fullscreen from '../components/fullscreen.vue';
+  import Particles from '../components/particles.vue'
 
   let boyCount = ref(0);
   let girlCount = ref(0);

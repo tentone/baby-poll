@@ -1,8 +1,8 @@
 <script setup>
   import {getLocale} from '../locale.js'
   import {Config} from '../config.js';
-  import Particles from '../components/Particles.vue';
-  import Fullscreen from '../components/Fullscreen.vue';
+  import Particles from '../components/particles.vue';
+  import Fullscreen from '../components/fullscreen.vue';
   import AWN from "awesome-notifications"
 
   let allowVote = true;

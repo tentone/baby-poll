@@ -1,7 +1,7 @@
 import './main.css'
 
 import {createApp} from 'vue'
-import App from './App.vue'
+import App from './app.vue'
 import router from './router.js'
 import { v4 as uuidv4 } from 'uuid';
 

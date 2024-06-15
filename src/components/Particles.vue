@@ -7,7 +7,8 @@
   </template>
   
   <script>
-  import Canvas from "./Canvas.vue";
+  import { CSSUtils } from "../css";
+import Canvas from "./canvas.vue";
   import Proton from "proton-engine";
   import RAFManager from "raf-manager";
   
@@ -59,8 +60,8 @@
             return {emitter: emitter, crossZoneBehaviour: crossZoneBehaviour};
         };
 
-        const a = createEmitter("#ffd9d6");
-        const b = createEmitter("#afd5e9");
+        const a = createEmitter(CSSUtils.getVariable("--pink"));
+        const b = createEmitter(CSSUtils.getVariable("--blue"));
         proton.addEmitter(a.emitter);
         proton.addEmitter(b.emitter);
         proton.addRenderer(this.createRenderer(canvas));

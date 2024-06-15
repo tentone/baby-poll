@@ -10,12 +10,12 @@ export default createRouter({
     {
       path: '/results',
       name: 'results',
-      component: () => import('./views/ResultsView.vue')
+      component: () => import('./views/results-view.vue')
     },
     {
       path: '/vote',
       name: 'vote',
-      component: () => import('./views/VoteView.vue')
+      component: () => import('./views/vote-view.vue')
     }
   ]
 });
