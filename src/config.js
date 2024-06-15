@@ -7,10 +7,10 @@ export const Config = {
   locale: "pt",
   
   // Minimum time between votes in seconds.
-  timeBetweenVotes: 0,
+  timeBetweenVotes: 5,
 
   // Allow a user to vote multiple times.
-  multipleVotes: false,
+  multipleVotes: true,
 
   // The URL of the API.
   api: {
