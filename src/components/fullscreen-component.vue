@@ -1,4 +1,7 @@
 <script setup>
+  /**
+   * Toggles fullscreen mode.
+   */
   async function fullscreen() {
     try {
       if (document.fullscreenElement) {
@@ -7,7 +10,7 @@
         await document.documentElement.requestFullscreen();
       }
     } catch (e) {
-      alert('Error toggling fullscreen' + e);
+      alert('Error toggling fullscreen ' + e);
     }
   }
 </script>

@@ -19,10 +19,19 @@
       Canvas,
     },
     methods: {
+      /**
+       * Method called when the canvas is initialized.
+       * 
+       * @param canvas {HTMLCanvasElement}
+       */
       canvasInited: function (canvas) {
         this.createProton(canvas);
       },
 
+      /**
+       * Resize the canvas and the cross zone behaviours.
+       * 
+       */
       canvasResize: function ({ width, height }) {
         for (const behaviour of this.crossZoneBehaviours) {
             behaviour.zone.width = width + 100;
@@ -32,6 +41,13 @@
         this.proton.renderers[0].resize(width, height);
       },
 
+      /**
+       * Create proton particle engine instance with emitters and renderers.
+       * 
+       * Emitters are created with a color and count, and added to the proton engine.
+       * 
+       * @param {HTMLCanvasElement} canvas
+       */
       createProton(canvas) {
         const width = canvas.width;
         const height = canvas.height;
@@ -83,6 +99,12 @@
         
         this.proton = proton;
       },
+
+      /**
+       * Create a renderer for the proton engine.
+       * 
+       * @param canvas {HTMLCanvasElement} The canvas element to render to.
+       */
       createRenderer(canvas) {
         const tailSize = 12;
         const tailFrameUpdate = 5;
@@ -133,10 +155,11 @@
           context.strokeStyle = particle.color;
           context.moveTo(particle.p.x, particle.p.y);
           const l = particle.data.points.length;
+
           for (let i = 0; i < l; i += 2) {
             const x = particle.data.points[i];
             const y = particle.data.points[i + 1];
-            context.lineWidth = linearEvaluation(i, l) * 2.0;
+            context.lineWidth = linearEvaluation(i, l);
             context.lineTo(x, y);
             context.stroke();
           }
@@ -144,12 +167,15 @@
         
         // Linear evaluation for the tail width
         const linearEvaluation = (i, l) => {
-          if (l <= 2) return 1;
+          if (l <= 2) {
+            return 2.0;
+          }
   
-          const max = 6;
+          const max = 12;
           const A = (max - 1) / (2 / l - 1);
           const B = 1 - A;
           const x = (i + 2) / l;
+
           let val = A * x + B;
           val = val >> 0;
   
@@ -166,9 +192,14 @@
         }
       },
     },
+    
     created() {
       RAFManager.add(this.renderProton);
     },
+
+    /**
+     * Destroy the proton engine and remove the render loop.
+     */
     beforeDestory() {
       try {
         this.proton.destroy();
