@@ -5,7 +5,7 @@ export default createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/results',
+      redirect: '/vote',
     },
     {
       path: '/results',
