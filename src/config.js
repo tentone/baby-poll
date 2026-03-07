@@ -20,9 +20,6 @@ export const Config = {
 
   // The URL of the API.
   api: {
-    // Address of the server
-    address: "localhost",
-
     // Port of the server.
     port: 3000,
   },

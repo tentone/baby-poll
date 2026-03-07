@@ -23,7 +23,7 @@
       };
 
       try {
-        const response = await fetch('http://' + Config.api.address + ':' + Config.api.port + '/vote', {method: 'POST', headers: {
+        const response = await fetch(window.location.origin + '/vote', {method: 'POST', headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }, body: JSON.stringify(data)})
