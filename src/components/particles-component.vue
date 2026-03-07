@@ -59,7 +59,7 @@
             emitter.rate = new Proton.Rate(count);
             emitter.addInitialize(new Proton.Mass(1));
             emitter.addInitialize(new Proton.Radius(5, 10));
-            emitter.addInitialize(new Proton.Velocity(new Proton.Span(1.5), new Proton.Span(0, 360),"polar"));
+            emitter.addInitialize(new Proton.Velocity(new Proton.Span(1.5), new Proton.Span(0, 360), "polar"));
             emitter.addInitialize(new Proton.Position(new Proton.RectZone(0, 0, width, height)));
 
             // Limit the particles to the canvas

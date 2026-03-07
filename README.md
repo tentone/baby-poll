@@ -45,8 +45,8 @@ export const Config = {
 ## Docker
  - To run the app using Docker, make sure you have [Docker](https://www.docker.com/) installed and running on your machine.
  - Build the Docker image by running `docker build -t baby-poll .` in the project directory.
- - Run the Docker container with `docker run -p 8080:8080 -p 3000:3000 baby-poll`.
- - The client will be accessible at `http://localhost:8080` and the server at `http://localhost:3000`.
+ - Run the Docker container with `docker run -p 3000:3000 baby-poll`.
+ - The client will be accessible at `http://localhost:3000`.
 
 ## License
  - The project is distributed under [MIT](https://opensource.org/licenses/MIT), available in the LICENSE file
