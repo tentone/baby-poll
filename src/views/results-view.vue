@@ -1,15 +1,30 @@
 <script setup>
-  import {Config} from '../config.js';
   import {getLocale} from '../locale.js'
-  import {ref} from 'vue'
+  import {ref, onMounted, onBeforeUnmount} from 'vue'
   import Fullscreen from '../components/fullscreen-component.vue';
   import Particles from '../components/particles-component.vue'
 
   let boyCount = ref(0);
   let girlCount = ref(0);
 
+  let previousBoy = 0;
+  let previousGirl = 0;
+  let particlesReady = false;
+  let pollTimeout = null;
+
+  const particles = ref(null);
   const boyBar = ref(null);
   const girlBar = ref(null);
+
+  const baseSound = new Audio(new URL('../assets/vote.mp3', import.meta.url).href);
+  baseSound.preload = 'auto';
+
+  function playVoteSound(times) {
+    for (let i = 0; i < times; i++) {
+      const sound = baseSound.cloneNode(true);
+      sound.play().catch(() => {});
+    }
+  }
 
   async function getResults() {
     const response = await fetch(window.location.origin + '/results', {method: 'GET'});
@@ -17,8 +32,12 @@
 
     console.log('Received results from API', data);
 
-    const boy = data.boy;
-    const girl = data.girl;
+    const boy = Number(data.boy || 0);
+    const girl = Number(data.girl || 0);
+
+    const newBoys = Math.max(0, boy - previousBoy);
+    const newGirls = Math.max(0, girl - previousGirl);
+    const hasDecreased = boy < previousBoy || girl < previousGirl;
 
     if(boyBar.value) {
       boyBar.value.style.width = Math.ceil((boy > 0 ? boy / (boy + girl) : 0.1) * 100) + '%';
@@ -28,13 +47,34 @@
       girlBar.value.style.width = Math.ceil((girl > 0 ? girl / (boy + girl) : 0.1) * 100) + '%';
     }
 
-    boyCount.value=data.boy;
-    girlCount.value=data.girl;
+    boyCount.value = boy;
+    girlCount.value = girl;
 
-    setTimeout(getResults, 1000);
+    if (particles.value) {
+      if (!particlesReady || hasDecreased) {
+        particles.value.resetSperm(boy, girl);
+        particlesReady = true;
+      } else if ((newBoys + newGirls) > 0) {
+        particles.value.addSpermBatch({boy: newBoys, girl: newGirls});
+        playVoteSound(newBoys + newGirls);
+      }
+    }
+
+    previousBoy = boy;
+    previousGirl = girl;
+
+    pollTimeout = setTimeout(getResults, 1000);
   }
 
-  getResults();
+  onMounted(() => {
+    getResults();
+  });
+
+  onBeforeUnmount(() => {
+    if (pollTimeout) {
+      clearTimeout(pollTimeout);
+    }
+  });
 
 </script>
 
@@ -163,6 +203,6 @@
     </div>
   </div>
 
-  <Particles/>
+  <Particles ref="particles"/>
 </template> 
 

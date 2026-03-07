@@ -18,6 +18,13 @@
     components: {
       Canvas,
     },
+    data() {
+      return {
+        canvas: null,
+        crossZoneBehaviours: [],
+        pendingReset: null,
+      };
+    },
     methods: {
       /**
        * Method called when the canvas is initialized.
@@ -25,7 +32,13 @@
        * @param canvas {HTMLCanvasElement}
        */
       canvasInited: function (canvas) {
+        this.canvas = canvas;
         this.createProton(canvas);
+
+        if (this.pendingReset) {
+          this.resetSperm(this.pendingReset.boy, this.pendingReset.girl);
+          this.pendingReset = null;
+        }
       },
 
       /**
@@ -48,52 +61,125 @@
        * 
        * @param {HTMLCanvasElement} canvas
        */
-      createProton(canvas) {
-        const width = canvas.width;
-        const height = canvas.height;
+      createProton(canvas, initialCounts = null) {
         const proton = new Proton();
-        
-        const createEmitter = (color, count) => {
-            const emitter = new Proton.Emitter();
-            emitter.damping = 0.005;
-            emitter.rate = new Proton.Rate(count);
-            emitter.addInitialize(new Proton.Mass(1));
-            emitter.addInitialize(new Proton.Radius(5, 10));
-            emitter.addInitialize(new Proton.Velocity(new Proton.Span(1.5), new Proton.Span(0, 360), "polar"));
-            emitter.addInitialize(new Proton.Position(new Proton.RectZone(0, 0, width, height)));
-
-            // Limit the particles to the canvas
-            const crossZoneBehaviour = new Proton.CrossZone(new Proton.RectZone(-50, -50, canvas.width + 100, canvas.height + 100), "bound");
-
-            emitter.addBehaviour(new Proton.Color(color));
-            emitter.addBehaviour(crossZoneBehaviour);
-            emitter.addBehaviour(new Proton.RandomDrift(15, 15, 0.05));
-            emitter.emit("once");
-
-            return {emitter: emitter, crossZoneBehaviour: crossZoneBehaviour};
-        };
-
         this.crossZoneBehaviours = [];
 
+        const addEmitterToProton = (color, count) => {
+          if (!count || count <= 0) {
+            return;
+          }
+
+          const { emitter, crossZoneBehaviour } = this.buildEmitter(color, count);
+          proton.addEmitter(emitter);
+          this.crossZoneBehaviours.push(crossZoneBehaviour);
+          emitter.emit("once");
+        };
+
         if (Config.coloredSperm) {
-          const a = createEmitter(CSSUtils.getVariable("--pink-light"), Config.spermCount / 2);
-          proton.addEmitter(a.emitter);
+          const boyCount = initialCounts ? (initialCounts.boy || 0) : Config.spermCount / 2;
+          const girlCount = initialCounts ? (initialCounts.girl || 0) : Config.spermCount / 2;
 
-          const b = createEmitter(CSSUtils.getVariable("--blue-light"), Config.spermCount / 2);
-          proton.addEmitter(b.emitter);
-
-          this.crossZoneBehaviours = [a.crossZoneBehaviour, b.crossZoneBehaviour];
+          addEmitterToProton(CSSUtils.getVariable("--blue-light"), boyCount);
+          addEmitterToProton(CSSUtils.getVariable("--pink-light"), girlCount);
         } else {
-          const a = createEmitter(CSSUtils.getVariable("--white", Config.spermCount));
-          proton.addEmitter(a.emitter);
-          this.crossZoneBehaviours = [a.crossZoneBehaviour];
+          const total = initialCounts ? (initialCounts.boy || 0) + (initialCounts.girl || 0) : Config.spermCount;
+          addEmitterToProton(CSSUtils.getVariable("--white"), total);
         }
-
    
         proton.addRenderer(this.createRenderer(canvas));
 
         
         this.proton = proton;
+      },
+
+      /**
+       * Build an emitter with the shared setup used across the component.
+       * 
+       * @param color {string}
+       * @param count {number}
+       * @returns {{emitter: Proton.Emitter, crossZoneBehaviour: Proton.CrossZone}}
+       */
+      buildEmitter(color, count) {
+        const emitter = new Proton.Emitter();
+        emitter.damping = 0.005;
+        emitter.rate = new Proton.Rate(count);
+        emitter.addInitialize(new Proton.Mass(1));
+        emitter.addInitialize(new Proton.Radius(5, 10));
+        emitter.addInitialize(new Proton.Velocity(new Proton.Span(1.5), new Proton.Span(0, 360), "polar"));
+        emitter.addInitialize(new Proton.Position(new Proton.RectZone(0, 0, this.canvas.width, this.canvas.height)));
+
+        const crossZoneBehaviour = new Proton.CrossZone(new Proton.RectZone(-50, -50, this.canvas.width + 100, this.canvas.height + 100), "bound");
+
+        emitter.addBehaviour(new Proton.Color(color));
+        emitter.addBehaviour(crossZoneBehaviour);
+        emitter.addBehaviour(new Proton.RandomDrift(15, 15, 0.05));
+
+        return { emitter, crossZoneBehaviour };
+      },
+
+      /**
+       * Add sperm particles to the existing proton instance.
+       * 
+       * @param {{boy?: number, girl?: number}} counts
+       */
+      addSpermBatch(counts = {boy: 0, girl: 0}) {
+        if (!this.proton || !this.canvas) {
+          return;
+        }
+
+        if (Config.coloredSperm) {
+          if (counts.boy > 0) {
+            this.emitSperm(CSSUtils.getVariable("--blue-light"), counts.boy);
+          }
+
+          if (counts.girl > 0) {
+            this.emitSperm(CSSUtils.getVariable("--pink-light"), counts.girl);
+          }
+        } else {
+          const total = (counts.boy || 0) + (counts.girl || 0);
+          if (total > 0) {
+            this.emitSperm(CSSUtils.getVariable("--white"), total);
+          }
+        }
+      },
+
+      /**
+       * Reset the proton instance with the provided counts.
+       * 
+       * @param boyCount {number}
+       * @param girlCount {number}
+       */
+      resetSperm(boyCount = 0, girlCount = 0) {
+        if (!this.canvas) {
+          this.pendingReset = {boy: boyCount, girl: girlCount};
+          return;
+        }
+
+        if (this.proton) {
+          try {
+            this.proton.destroy();
+          } catch (e) {}
+        }
+
+        this.createProton(this.canvas, {boy: boyCount, girl: girlCount});
+      },
+
+      /**
+       * Emits sperm particles with the given color and count.
+       * 
+       * @param color {string}
+       * @param count {number}
+       */
+      emitSperm(color, count) {
+        if (!this.canvas || !this.proton || !count || count <= 0) {
+          return;
+        }
+
+        const { emitter, crossZoneBehaviour } = this.buildEmitter(color, count);
+        this.proton.addEmitter(emitter);
+        this.crossZoneBehaviours.push(crossZoneBehaviour);
+        emitter.emit("once");
       },
 
       /**
