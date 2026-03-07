@@ -58,6 +58,8 @@ class Server {
         this.app.use(cors());
         this.app.use(express.json());
 
+        this.app.use(express.static('./dist'));
+
         this.app.post('/reset', (req, res) => {
             this.createData();
             res.send();

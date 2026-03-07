@@ -20,7 +20,6 @@
     const boy = data.boy;
     const girl = data.girl;
 
-
     if(boyBar.value) {
       boyBar.value.style.width = Math.ceil((boy > 0 ? boy / (boy + girl) : 0.1) * 100) + '%';
     }

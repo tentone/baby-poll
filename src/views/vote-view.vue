@@ -116,6 +116,7 @@
 </style>
 
 <template>
+  <router-link to="/results" class="results-button">{{getLocale("results")}}</router-link>
   <Fullscreen/>
 
   <div class="container">
