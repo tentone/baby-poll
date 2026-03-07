@@ -113,10 +113,22 @@
     height: 30px;
   }
 
+  .results-button {
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    left: 50px;
+    width: 30px;
+    height: 30px;
+  }
+
 </style>
 
 <template>
-  <router-link to="/results" class="results-button">{{getLocale("results")}}</router-link>
+  <router-link to="/results" class="results-button">
+    <img src="../assets/bar-chart.svg" style="width: 100%; height: 100%;"/>
+  </router-link>
+
   <Fullscreen/>
 
   <div class="container">

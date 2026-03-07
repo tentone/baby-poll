@@ -21,7 +21,7 @@ export const Config = {
   // The URL of the API.
   api: {
     // Port of the server.
-    port: 3000,
+    port: 80,
   },
 
   // Path to the database.
