@@ -30,9 +30,6 @@ export const Config = {
 
   // The URL of the API.
   api: {
-    // Address of the server
-    address: "localhost",
-
     // Port of the server.
     port: 3000,
   },
@@ -45,7 +42,7 @@ export const Config = {
 ## Docker
  - To run the app using Docker, make sure you have [Docker](https://www.docker.com/) installed and running on your machine.
  - Build the Docker image by running `docker build -t baby-poll .` in the project directory.
- - Run the Docker container with `docker run -p 3000:3000 baby-poll`.
+ - Run the Docker container with `docker run -p 3000:3000 -v $(pwd)/data:/app/data baby-poll`.
  - The client will be accessible at `http://localhost:3000`.
 
 ## License

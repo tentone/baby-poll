@@ -44,7 +44,13 @@ class Server {
      * Save data to the database.
      */
     saveData() {
-        console.log(' - Saving data to the database.')
+        console.log(' - Saving data to the database.');
+        
+        const dir = this.config.database.substring(0, this.config.database.lastIndexOf('/'));
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir, { recursive: true });
+        }
+        
         fs.writeFileSync(this.config.database, JSON.stringify(this.data));
     }
 
@@ -70,7 +76,7 @@ class Server {
 
         this.app.post('/api/reset', (req, res) => {
             this.createData();
-            res.send();s
+            res.send();
         });
 
         this.app.get('/api/results', (req, res) => {

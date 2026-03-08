@@ -22,5 +22,5 @@ export const Config = {
   },
 
   // Path to the database.
-  database: 'database.json',
+  database: './data/database.json',
 };
