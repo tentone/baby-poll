@@ -5,18 +5,15 @@
 export const Config = {
   // The locale to be used.
   locale: "pt",
-  
-  // Minimum time between votes in seconds.
-  timeBetweenVotes: 5,
 
-  // Sperm count.
-  spermCount: 20,
-
-  // Colored sperm
+  // Colored sperm, if false the sperm will be white.
   coloredSperm: true,
 
   // Allow a user to vote multiple times.
   multipleVotes: true,
+
+  // Minimum time between votes in seconds.
+  timeBetweenVotes: 5,
 
   // The URL of the API.
   api: {

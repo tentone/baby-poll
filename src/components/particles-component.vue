@@ -77,13 +77,13 @@
         };
 
         if (Config.coloredSperm) {
-          const boyCount = initialCounts ? (initialCounts.boy || 0) : Config.spermCount / 2;
-          const girlCount = initialCounts ? (initialCounts.girl || 0) : Config.spermCount / 2;
+          const boyCount = initialCounts ? (initialCounts.boy || 0) : 0;
+          const girlCount = initialCounts ? (initialCounts.girl || 0) : 0;
 
-          addEmitterToProton(CSSUtils.getVariable("--blue-light"), boyCount);
-          addEmitterToProton(CSSUtils.getVariable("--pink-light"), girlCount);
+          addEmitterToProton(CSSUtils.getVariable("--blue-mid"), boyCount);
+          addEmitterToProton(CSSUtils.getVariable("--pink-mid"), girlCount);
         } else {
-          const total = initialCounts ? (initialCounts.boy || 0) + (initialCounts.girl || 0) : Config.spermCount;
+          const total = initialCounts ? (initialCounts.boy || 0) + (initialCounts.girl || 0) : 0;
           addEmitterToProton(CSSUtils.getVariable("--white"), total);
         }
    
@@ -130,11 +130,11 @@
 
         if (Config.coloredSperm) {
           if (counts.boy > 0) {
-            this.emitSperm(CSSUtils.getVariable("--blue-light"), counts.boy);
+            this.emitSperm(CSSUtils.getVariable("--blue-mid"), counts.boy);
           }
 
           if (counts.girl > 0) {
-            this.emitSperm(CSSUtils.getVariable("--pink-light"), counts.girl);
+            this.emitSperm(CSSUtils.getVariable("--pink-mid"), counts.girl);
           }
         } else {
           const total = (counts.boy || 0) + (counts.girl || 0);
@@ -188,7 +188,7 @@
        * @param canvas {HTMLCanvasElement} The canvas element to render to.
        */
       createRenderer(canvas) {
-        const tailSize = 12;
+        const tailSize = 18;
         const tailFrameUpdate = 5;
         const context = canvas.getContext("2d");
         const renderer = new Proton.CanvasRenderer(canvas);

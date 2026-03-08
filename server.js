@@ -60,16 +60,24 @@ class Server {
 
         this.app.use(express.static('./dist'));
 
-        this.app.post('/reset', (req, res) => {
-            this.createData();
-            res.send();
+        this.app.get('*', (req, res, next) => {
+            if (!req.path.startsWith('/api/')) {
+                res.sendFile('./dist/index.html', { root: '.' });
+            } else {
+                next();
+            }
         });
 
-        this.app.get('/results', (req, res) => {
+        this.app.post('/api/reset', (req, res) => {
+            this.createData();
+            res.send();s
+        });
+
+        this.app.get('/api/results', (req, res) => {
             res.send(this.data.results);
         });
 
-        this.app.post('/vote', (req, res) => {
+        this.app.post('/api/vote', (req, res) => {
             const data = req.body;
 
             console.log(' - Received a vote.', data);

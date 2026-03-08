@@ -19,6 +19,9 @@
   const baseSound = new Audio(new URL('../assets/vote.mp3', import.meta.url).href);
   baseSound.preload = 'auto';
 
+  /**
+   * Play the vote sound a number of times.
+   */
   function playVoteSound(times) {
     for (let i = 0; i < times; i++) {
       const sound = baseSound.cloneNode(true);
@@ -26,8 +29,13 @@
     }
   }
 
+  /**
+   * Get the results from the API and update the view.
+   * 
+   * This method is called every second to poll for new results.
+   */
   async function getResults() {
-    const response = await fetch(window.location.origin + '/results', {method: 'GET'});
+    const response = await fetch(window.location.origin + '/api/results', {method: 'GET'});
     const data = await response.json();
 
     console.log('Received results from API', data);
@@ -83,6 +91,7 @@
     font-size: 40px;
     font-weight: bold;
     color: var(--text);
+    text-shadow: 0px 3px 2px var(--white);
   }
 
   .container {
@@ -162,7 +171,7 @@
   <Fullscreen/>
 
   <div class="container">
-    <div class="title">{{getLocale("results")}}</div>
+    <div class="title">{{getLocale("boyOrGirl")}}</div>
 
     <!-- Boy -->
     <div style="display:flex; flex-direction: row; gap: 30px;">

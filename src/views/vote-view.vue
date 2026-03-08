@@ -1,13 +1,36 @@
 <script setup>
   import {getLocale} from '../locale.js'
   import {Config} from '../config.js';
+  import {ref, onMounted, onBeforeUnmount} from 'vue'
   import Particles from '../components/particles-component.vue';
   import Fullscreen from '../components/fullscreen-component.vue';
   import AWN from "awesome-notifications"
 
+  let boyCount = ref(0);
+  let girlCount = ref(0);
+
+  let previousBoy = 0;
+  let previousGirl = 0;
+  let particlesReady = false;
+  let pollTimeout = null;
+
+  const particles = ref(null);
+
+  /**
+   * Flag to control if the user can vote or not.
+   * 
+   * This is used to prevent multiple votes in a short period of time.
+   */
   let allowVote = true;
+
+  /**
+   * Notification manager.
+   */
   let notifier = new AWN({enabled: false});
 
+  /**
+   * Vote for an option and send the vote to the API.
+   */
   async function vote(option) {
     await notifier.asyncBlock((async function() {
       if (!allowVote) {
@@ -23,7 +46,7 @@
       };
 
       try {
-        const response = await fetch(window.location.origin + '/vote', {method: 'POST', headers: {
+        const response = await fetch(window.location.origin + '/api/vote', {method: 'POST', headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         }, body: JSON.stringify(data)})
@@ -46,6 +69,49 @@
     })(), null, null, getLocale("sending"));
   }
 
+  /**
+   * Get the results from the API and update the view.
+   * 
+   * Used to update the background particles with the current vote counts.
+   */
+  async function getResults() {
+    const response = await fetch(window.location.origin + '/api/results', {method: 'GET'});
+    const data = await response.json();
+
+    const boy = Number(data.boy || 0);
+    const girl = Number(data.girl || 0);
+
+    const newBoys = Math.max(0, boy - previousBoy);
+    const newGirls = Math.max(0, girl - previousGirl);
+    const hasDecreased = boy < previousBoy || girl < previousGirl;
+
+    boyCount.value = boy;
+    girlCount.value = girl;
+
+    if (particles.value) {
+      if (!particlesReady || hasDecreased) {
+        particles.value.resetSperm(boy, girl);
+        particlesReady = true;
+      } else if ((newBoys + newGirls) > 0) {
+        particles.value.addSpermBatch({boy: newBoys, girl: newGirls});
+      }
+    }
+
+    previousBoy = boy;
+    previousGirl = girl;
+
+    pollTimeout = setTimeout(getResults, 1000);
+  }
+
+  onMounted(() => {
+    getResults();
+  });
+
+  onBeforeUnmount(() => {
+    if (pollTimeout) {
+      clearTimeout(pollTimeout);
+    }
+  });
 </script>
 
 <style scoped>
@@ -53,6 +119,7 @@
     font-size: 50px;
     font-weight: bold;
     color: var(--text);
+    text-shadow: 0px 3px 2px var(--white);
   }
 
   .button-text {
@@ -170,6 +237,6 @@
 
 
 
-  <Particles/>
+  <Particles ref="particles"/>
 </template> 
 
